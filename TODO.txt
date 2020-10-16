@@ -1,0 +1,23 @@
+-- TODO --
+- Material: meter Angular Material
+- Iconos: meter un par de bibliotecas de íconos (la de ionic y la de Angular)
+- Estructura:
+  app/pages
+  app/pages/root
+  app/pages/home
+  app/pages/not-found
+  app/components
+  app/services/common
+  app/directives
+  app/app.identity.js
+- versión: componer una solución para el problema de tener siempre el font end a la última versión.
+  - traer la solución que hizo juan para que se genere un json con la versión de la app
+  - escribir algun service que resuelva lo que tengo en vpaee.io de que se fija la versión y si no coincide recarga todo.
+- crear una super clase para las páginas AppPage
++ installar: npm i ngx-cookie-service --save
+
+
+
+
+// Module not found: Error: Can't resolve 'stream' in '/var/www/vapaee-webapp-template/node_modules/cipher-base'
+$ nom i -S stream

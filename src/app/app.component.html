@@ -1,29 +1,54 @@
 <ion-app>
-  <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
-      <ion-content>
-        <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
+<!-- Container for sidebar(s) + page content -->
+<ng-sidebar-container id="sidebar">
+ 
+  <!-- A sidebar -->
+  <ng-sidebar [(opened)]="app.sidemenu.opened" [position]="'right'">
+      <div class="sidebar-content">
+          <ul class="nav navbar-nav ml-auto">
+              <li class="nav-item" [ngClass]="{active: app.stateStartsWith('home')}" (click)="app.closeSideMenu()">
+                  <a class="nav-link" routerLink="{{'/home'}}" >
+                      <i class="material-icons nav"> navigate_next </i>
+                      <i class="material-icons"> home </i>
+                      {{local.string.Home | titlecase}}
+                  </a>
+              </li>
+              <li class="nav-item skin dropdown">
+                  <a class="nav-link dropdown-toggle cursor-pointer" (click)="dropdown.drop('skin')">
+                      <i class="material-icons"> palette </i>
+                      {{local.string.skin | titlecase}}
+                      <span class="caret"></span>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" [ngClass]="{show:dropdown.isOpen('skin')}">
+                      <span
+                          class="cursor-pointer dropdown-item"
+                          (click)="style.setSkin(skin.id); dropdown.close(); app.closeSideMenu(); "
+                          *ngFor="let skin of style.skins"
+                          [ngClass]="{'active': skin.id == style.current.id}"
+                      >{{skin.name}}</span>
+                  </div>
+              </li>
+              <li class="nav-item language dropdown" >
+                  <a  class="nav-link dropdown-toggle cursor-pointer" (click)="dropdown.drop('language')">
+                      <i class="material-icons"> language </i>
+                      {{local.string.Language | titlecase}}
+                      <span class="caret"></span>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" [ngClass]="{show: dropdown.isOpen('language')}" >
+                      <span class="cursor-pointer dropdown-item" (click)="local.setLocal('en_US'); dropdown.close(); app.closeSideMenu(); debug();">English</span>
+                      <span class="cursor-pointer dropdown-item" (click)="local.setLocal('es_ES'); dropdown.close(); app.closeSideMenu(); debug();">Español</span>
+                      <span class="cursor-pointer dropdown-item" (click)="local.setLocal('pt_BR'); dropdown.close(); app.closeSideMenu(); debug();">Português</span>
+                  </div>
+              </li>               
+          </ul>        
+      </div>
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" [class.selected]="selectedIndex == i">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
+  </ng-sidebar>
 
-        <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
+  <div ng-sidebar-content (click)="app.closeSideMenu()">
+      <router-outlet></router-outlet>
+  </div>
 
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ion-menu>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
-  </ion-split-pane>
+</ng-sidebar-container>
+<!-- Page content -->
 </ion-app>

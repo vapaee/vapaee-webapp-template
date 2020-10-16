@@ -1,0 +1,9 @@
+<div [hidden]="app.device.portrait" >
+    <h1>Widescreen</h1>
+    <h3>(Desktop)</h3>    
+</div>
+
+<div [hidden]="!app.device.portrait" >
+    <h1>Portrait / Mobile</h1>
+    <h3>(Mobile)</h3>
+</div>
