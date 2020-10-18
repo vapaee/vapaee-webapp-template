@@ -24,3 +24,24 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+// fixes (ini) --------------
+// Problema: el div.mat-chip-list-wrapper que se genera adentro de este componente tiene un margin -4px y esto genera un micro scroll a lo ancho
+// Solución: esto evita que que se genere ese scroll.
+mat-chip-list {
+    overflow: hidden;
+    display: block;
+}
+
+.mat-toolbar {
+    z-index: 10 !important;
+}
+// fixes (end) --------------
+
+
+
+
+// vpe-css-utils (ini) -----------------
+
+// vpe-css-utils (end) -----------------

@@ -6,22 +6,24 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppService } from './services/common/app.service';
 import { DropdownService, LocalStringsService } from './services/common/common.services';
 import { VapaeeStyle } from './services/vapaee/style/style.service';
+import { VpeMainTopSideMenuService } from './components/vapaee/vpe-main-top-side-menu/vpe-main-top-side-menu.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss']
+    selector: 'app-root',
+    templateUrl: 'app.component.html',
+    styleUrls: ['app.component.scss']
 })
 export class AppComponent {
 
     constructor(
-      public local: LocalStringsService,
-      public app: AppService,
-      public dropdown: DropdownService,
-      public style: VapaeeStyle,
-      private platform: Platform,
-      private splashScreen: SplashScreen,
-      private statusBar: StatusBar
+        public local: LocalStringsService,
+        public app: AppService,
+        public dropdown: DropdownService,
+        public style: VapaeeStyle,
+        private platform: Platform,
+        private splashScreen: SplashScreen,
+        private statusBar: StatusBar,
+        private mainmenu: VpeMainTopSideMenuService
     ) {
         this.initializeApp();
     }
@@ -31,6 +33,13 @@ export class AppComponent {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
         });
+
+        this.mainmenu.setMenu([
+            {short: "Home", long:"Home Page", link: "/home"},
+            {short: "Example", long:"Example Page", link: "/example"},
+            {short: "Scatter", long:"Scatter Page", link: "/scatter"},
+            {short: "Angular Material", long:"Angular Material Page", link: "/angular-material"}
+        ]);
     }
     
 }

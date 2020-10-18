@@ -1,23 +1,11 @@
 -- TODO --
-- Material: meter Angular Material
+
 - Iconos: meter un par de bibliotecas de íconos (la de ionic y la de Angular)
-- Estructura:
-  app/pages
-  app/pages/root
-  app/pages/home
-  app/pages/not-found
-  app/components
-  app/services/common
-  app/directives
-  app/app.identity.js
-- versión: componer una solución para el problema de tener siempre el font end a la última versión.
-  - traer la solución que hizo juan para que se genere un json con la versión de la app
-  - escribir algun service que resuelva lo que tengo en vpaee.io de que se fija la versión y si no coincide recarga todo.
-- crear una super clase para las páginas AppPage
-+ installar: npm i ngx-cookie-service --save
+- vpe-main-top-side-menu: 
+  
+   es un componente que se puede poner como header con todas las páginas y que implementa un header con side-menu en dispositivos pequeños. Viene acompañado de un servicio que se puede importar y que sirve para manipular y conservar el estado across pages.
 
 
 
-
-// Module not found: Error: Can't resolve 'stream' in '/var/www/vapaee-webapp-template/node_modules/cipher-base'
-$ nom i -S stream
+ng generate @angular/material:navigation components/vapaee/nav-component --module components/vapaee/vapaee-components
+ng generate @angular/material:navigation components/vapaee/vpe-main-top-side-menu --module components/vapaee/vapaee-components

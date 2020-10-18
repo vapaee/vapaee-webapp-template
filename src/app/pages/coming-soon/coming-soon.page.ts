@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { AppService } from 'src/app/services/common/app.service';
 import { LocalStringsService } from 'src/app/services/common/common.services';
 
@@ -13,7 +13,8 @@ export class ComingSoonPage implements OnInit, OnDestroy {
    
     constructor(
         public app: AppService,
-        public local: LocalStringsService
+        public local: LocalStringsService,
+        public elementRef: ElementRef
     ) {
     }
 

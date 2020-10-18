@@ -1,8 +1,10 @@
-import { Injectable, Component } from '@angular/core';
+import { Injectable, Component, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { AnalyticsService } from './analytics.service';
 import { DomService } from './dom.service';
-import { Subject } from 'rxjs';
+import { fromEvent, Subject, Subscriber } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 export interface Device {
     fullhd?:boolean, // >= 1600px
@@ -35,14 +37,14 @@ export class AppService {
     device: Device = {};
     loading: boolean;
     countdown: number;
-    _verison: string;
     public history: History;
 
     constructor(
         private router: Router, 
         private route: ActivatedRoute, 
         private analytics: AnalyticsService,
-        private dom: DomService
+        private dom: DomService,
+        public http: HttpClient
     ) {
         this.history = window.history;
         this.router.events.subscribe((event) => {
@@ -73,7 +75,7 @@ export class AppService {
     }
 
     get version() {
-        return this._verison;
+        return environment.version;
     }
 
     isOpera:boolean;
@@ -143,7 +145,7 @@ export class AppService {
         this.sidemenu.opened = false;
     }
 
-    // global variables ---------
+    // global variable (ini) ---------
     getGlobal(key, defautl:any = undefined): any {
         if (!this.global) this.global = {};
         if (typeof this.global[key] == "undefined") {
@@ -168,10 +170,22 @@ export class AppService {
         delete this.global[key];
         return aux;
     }
-    // global variables ---------
+    // global variables (end) ---------
 
-    init(version:string) {
-        this._verison = version;
+    init() {
+        console.debug("AppService.init()");
+        
+        this.http.get<any>("assets/app.json?_="+Math.random()).toPromise().then((appjson) => {
+            if (this.version != appjson.version) {
+                console.error(appjson, "ERROR: version missmatch. Reloading site...");
+                alert("load version " + appjson.version);
+                window.location.href = 
+                    window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + "/?_="+Math.random();
+            } else {
+                console.log("APP: ", appjson);
+            }
+        });        
+        
         this.detectBrowser();
         this.dom.appendComponentToBody(LoadingOverall);
         this.triggerOnInit();
@@ -336,24 +350,51 @@ export class AppService {
         return found;
     }
 
-    // OnEnterPaheHandler onEnterPage solution -----------------------------
-    pages:{[key:string]:OnEnterPaheHandler} = {};
-    subscribeOnEnterPage(page:OnEnterPaheHandler) {
+    // OnResizeHandler onResize solution -----------------------------
+    subscribeOnResize(listener:OnResizeHandler) {    
+        listener.onResizeSuscriber = new Subscriber<any>(listener.onResize.bind(listener));
+        this.onWindowResize.subscribe(listener.onResizeSuscriber);
+    }
+    unsubscribeOnResize(listener:OnResizeHandler) {
+        listener.onResizeSuscriber.unsubscribe();
+    }
+
+
+    // OnEnterPageHandler onEnterPage solution -----------------------------
+    pages:{[key:string]:OnEnterPageHandler} = {};
+    subscribePage(page:VpeAppPage) {
         page.page = page;
-        console.assert(typeof this.pages[page.path.toString()] == "undefined", "ERROR: OnEnterPaheHandler already subscribed: " + page.path.toString());
+        console.assert(typeof this.pages[page.path.toString()] == "undefined", "ERROR: OnEnterPageHandler already subscribed: " + page.path.toString());
         this.pages[page.path.toString()] = page;
+        this.subscribeOnResize(page);
     }
     
-    unsubscribeOnEnterPage(page:OnEnterPaheHandler) {
+    unsubscribePage(page:VpeAppPage) {
         delete this.pages[page.path.toString()];
+        this.unsubscribeOnResize(page);
     }
-    // OnEnterPaheHandler onEnterPage solution -----------------------------
+
 }
 
-export interface OnEnterPaheHandler {
-    path:RegExp;
-    page: OnEnterPaheHandler;
+export interface OnEnterPageHandler {
+    path: RegExp;
+    page: OnEnterPageHandler;
     onEnterPage: () => void;
+}
+
+export interface OnResizeHandler {
+    onResizeSuscriber: Subscriber<any>;
+    onResize: () => void;
+}
+
+export interface VpeAppPage {
+    onResizeSuscriber: Subscriber<any>;
+    onResize: () => void;
+
+    path: RegExp;
+    page: OnEnterPageHandler;
+    elementRef: ElementRef;
+    onEnterPage: () => void;    
 }
 
 

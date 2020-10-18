@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
-import { UppercaseDirective } from './uppercase.directive';
+import { VpeUppercaseDirective } from './vpe-uppercase.directive';
+
 
 
 @NgModule({
-  imports: [],
-  declarations: [UppercaseDirective],
-  exports: [UppercaseDirective]
+    imports: [],
+    declarations: [
+        VpeUppercaseDirective
+    ],
+    exports: [
+        VpeUppercaseDirective
+    ]
 })
 export class DirectivesModule { }

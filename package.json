@@ -5,18 +5,21 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "serve": "ionic serve"
+    "start": "node ./build/build-pre.js && ng serve",
+    "build": "node ./build/build-pre.js && ng build",
+    "test": "node ./build/build-pre.js && ng test",
+    "lint": "node ./build/build-pre.js && ng lint",
+    "e2e": "node ./build/build-pre.js && ng e2e",
+    "serve": "node ./build/build-pre.js && ionic serve"
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "~10.0.0",
+    "@angular/cdk": "^10.2.5",
     "@angular/common": "~10.0.0",
     "@angular/core": "~10.0.0",
     "@angular/forms": "~10.0.0",
+    "@angular/material": "^10.2.5",
     "@angular/platform-browser": "~10.0.0",
     "@angular/platform-browser-dynamic": "~10.0.0",
     "@angular/router": "~10.0.0",
@@ -29,7 +32,7 @@
     "bignumber.js": "^9.0.1",
     "eosjs": "^21.0.3",
     "long": "^4.0.0",
-    "ng-sidebar": "^9.4.2",
+    
     "ngx-cookie-service": "^10.1.1",
     "rxjs": "~6.5.5",
     "rxjs-compat": "^6.6.3",

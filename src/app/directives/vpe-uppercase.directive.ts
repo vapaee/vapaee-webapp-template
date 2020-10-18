@@ -8,7 +8,7 @@ import { Directive, OnInit, Output, Input, EventEmitter } from "@angular/core";
         '(input)': 'format($event.target.value)'
     }
 })
-export class UppercaseDirective implements OnInit {
+export class VpeUppercaseDirective implements OnInit {
 
     @Input() uppercase: string;
     @Output() uppercaseChange: EventEmitter<string> = new EventEmitter<string>();

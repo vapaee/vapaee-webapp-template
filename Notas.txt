@@ -1,0 +1,2 @@
+- hacer una página con un botón que diga login y se conecte con Scatter
+

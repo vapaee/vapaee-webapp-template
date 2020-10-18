@@ -7,13 +7,13 @@ import { VapaeeScatter } from 'src/app/services/vapaee/scatter/scatter.service';
 
 
 @Component({
-    selector: 'home-page',
-    templateUrl: './home.page.html',
-    styleUrls: ['./home.page.scss', '../common.page.scss']
+    selector: 'example-page',
+    templateUrl: './example.page.html',
+    styleUrls: ['./example.page.scss', '../common.page.scss']
 })
-export class HomePage implements OnInit, OnDestroy, VpeAppPage {
+export class ExamplePage implements OnInit, OnDestroy, VpeAppPage {
    
-    @HostBinding('class') class = 'app-page home';
+    @HostBinding('class') class = 'app-page example';
     timer: number;
     showFiller;
     constructor(
@@ -25,24 +25,24 @@ export class HomePage implements OnInit, OnDestroy, VpeAppPage {
         
     }
 
-    path: RegExp = /\/home/g;
+    path: RegExp = /\/example/g;
     page: OnEnterPageHandler;
     onEnterPage() {
-        console.debug("HomePage.onEnterPage()");
+        console.debug("ExamplePage.onEnterPage()");
     }
 
     onResizeSuscriber: Subscriber<any>;
     onResize() {
-        console.debug("HomePage.onResize()");
+        console.debug("ExamplePage.onResize()");
     }
 
     ngOnInit() {
-        console.debug("HomePage.ngOnInit()");
+        console.debug("ExamplePage.ngOnInit()");
         this.app.subscribePage(this);
     }
     
     ngOnDestroy() {
-        console.debug("HomePage.ngOnDestroy()");
+        console.debug("ExamplePage.ngOnDestroy()");
         this.app.unsubscribePage(this);
     }
 }

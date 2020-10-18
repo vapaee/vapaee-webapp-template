@@ -5,7 +5,7 @@ import { LocalStringsService } from 'src/app/services/common/common.services';
 @Component({
     selector: 'not-found-page',
     templateUrl: './not-found.page.html',
-    styleUrls: ['./not-found.page.scss']
+    styleUrls: ['./not-found.page.scss', '../common.page.scss']
 })
 export class NotFoundPage implements OnInit {
 

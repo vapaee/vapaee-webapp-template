@@ -13,4 +13,4 @@ import { VapaeeStyleModule } from './style/style.module';
   ],
   exports: []
 })
-export class VapaeeModule { }
+export class VapaeeLibsModule { }

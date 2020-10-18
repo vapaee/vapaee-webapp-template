@@ -1,54 +1,5 @@
 <ion-app>
-<!-- Container for sidebar(s) + page content -->
-<ng-sidebar-container id="sidebar">
- 
-  <!-- A sidebar -->
-  <ng-sidebar [(opened)]="app.sidemenu.opened" [position]="'right'">
-      <div class="sidebar-content">
-          <ul class="nav navbar-nav ml-auto">
-              <li class="nav-item" [ngClass]="{active: app.stateStartsWith('home')}" (click)="app.closeSideMenu()">
-                  <a class="nav-link" routerLink="{{'/home'}}" >
-                      <i class="material-icons nav"> navigate_next </i>
-                      <i class="material-icons"> home </i>
-                      {{local.string.Home | titlecase}}
-                  </a>
-              </li>
-              <li class="nav-item skin dropdown">
-                  <a class="nav-link dropdown-toggle cursor-pointer" (click)="dropdown.drop('skin')">
-                      <i class="material-icons"> palette </i>
-                      {{local.string.skin | titlecase}}
-                      <span class="caret"></span>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-right" [ngClass]="{show:dropdown.isOpen('skin')}">
-                      <span
-                          class="cursor-pointer dropdown-item"
-                          (click)="style.setSkin(skin.id); dropdown.close(); app.closeSideMenu(); "
-                          *ngFor="let skin of style.skins"
-                          [ngClass]="{'active': skin.id == style.current.id}"
-                      >{{skin.name}}</span>
-                  </div>
-              </li>
-              <li class="nav-item language dropdown" >
-                  <a  class="nav-link dropdown-toggle cursor-pointer" (click)="dropdown.drop('language')">
-                      <i class="material-icons"> language </i>
-                      {{local.string.Language | titlecase}}
-                      <span class="caret"></span>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-right" [ngClass]="{show: dropdown.isOpen('language')}" >
-                      <span class="cursor-pointer dropdown-item" (click)="local.setLocal('en_US'); dropdown.close(); app.closeSideMenu(); debug();">English</span>
-                      <span class="cursor-pointer dropdown-item" (click)="local.setLocal('es_ES'); dropdown.close(); app.closeSideMenu(); debug();">Español</span>
-                      <span class="cursor-pointer dropdown-item" (click)="local.setLocal('pt_BR'); dropdown.close(); app.closeSideMenu(); debug();">Português</span>
-                  </div>
-              </li>               
-          </ul>        
-      </div>
-
-  </ng-sidebar>
-
-  <div ng-sidebar-content (click)="app.closeSideMenu()">
-      <router-outlet></router-outlet>
-  </div>
-
-</ng-sidebar-container>
-<!-- Page content -->
+    <vpe-main-top-side-menu>
+        <router-outlet></router-outlet>
+    </vpe-main-top-side-menu>
 </ion-app>
