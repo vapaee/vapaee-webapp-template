@@ -17,6 +17,7 @@ import { VapaeeLibsModule } from './services/vapaee/vapaee.module';
 import { CommonServicesModule } from './services/common/common.module';
 import { VapaeeComponentsModule } from './components/vapaee/vapaee-components.module';
 import { AngularMaterialModule } from './components/vapaee/angular.material.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,7 +31,8 @@ import { AngularMaterialModule } from './components/vapaee/angular.material.modu
     CommonServicesModule,
     VapaeeLibsModule,
     VapaeeComponentsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    NgbModule
   ],
   providers: [
     StatusBar,
