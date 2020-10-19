@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy, HostBinding, ElementRef } from '@angular/
 import { Subscriber } from 'rxjs';
 import { AppService, OnEnterPageHandler, VpeAppPage } from 'src/app/services/common/app.service';
 import { LocalStringsService } from 'src/app/services/common/common.services';
-import { VapaeeScatter } from 'src/app/services/vapaee/scatter/scatter.service';
 
 
 
@@ -19,7 +18,6 @@ export class ExamplePage implements OnInit, OnDestroy, VpeAppPage {
     constructor(
         public app: AppService,
         public local: LocalStringsService,
-        public scatter: VapaeeScatter,
         public elementRef: ElementRef
     ) {
         

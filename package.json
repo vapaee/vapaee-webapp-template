@@ -10,7 +10,8 @@
     "test": "node ./build/build-pre.js && ng test",
     "lint": "node ./build/build-pre.js && ng lint",
     "e2e": "node ./build/build-pre.js && ng e2e",
-    "serve": "node ./build/build-pre.js && ionic serve"
+    "serve": "node ./build/build-pre.js && ionic serve",
+    "postinstall": "node build/postinstall-patch.js; "
   },
   "private": true,
   "dependencies": {

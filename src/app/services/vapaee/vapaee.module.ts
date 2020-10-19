@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { VapaeeScatterModule } from './scatter/scatter.module';
+import { VapaeeScatter2Module } from './scatter2/scatter2.module';
 import { VapaeeStyleModule } from './style/style.module';
 
 @NgModule({
   imports: [    
-    VapaeeScatterModule,
+    VapaeeScatter2Module,
     VapaeeStyleModule
   ],
   declarations: [],

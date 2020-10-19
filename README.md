@@ -8,3 +8,8 @@ This is a template for a web-app working with Telos blockchain. Vapaée is a com
 - inside src/app/pages/my-new-section/my-new-section.page.ts change the name of the class from ExamplePage to MyNewSectionPage
 - import the Component in src/app/pages/pages.module.ts and include MyNewSectionPage in declarations and exports lists           
 - add a new rule in src/app/app-routing.module.ts for the new page
+
+
+### Bootstrap 
+Adding bootstrap to the project came with some bugs that were fixed applying this
+// https://github.com/aws/aws-sdk-js/issues/2141#issuecomment-434673824

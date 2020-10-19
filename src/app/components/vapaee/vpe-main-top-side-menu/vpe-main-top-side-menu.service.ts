@@ -44,9 +44,9 @@ export class VpeMainTopSideMenuService {
         ) {
 
             this.router.events.subscribe((event) => {
-                console.log("this.router.events", event);
+                /// console.log("this.router.events", event);
                 if (event instanceof NavigationEnd) {
-                    console.log("---> this.onDataChange.next({path:this.router.url});");
+                    // console.log("---> this.onDataChange.next({path:this.router.url});");
                     this.onDataChange.next({path:this.router.url});
                 }
             });

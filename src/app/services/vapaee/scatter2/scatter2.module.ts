@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { VapaeeScatter } from './scatter.service';
+import { VapaeeScatter2 } from './scatter2.service';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   declarations: [],
-  providers: [VapaeeScatter],
+  providers: [VapaeeScatter2],
   exports: []
 })
-export class VapaeeScatterModule { }
+export class VapaeeScatter2Module { }

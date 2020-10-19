@@ -1,4 +1,4 @@
-import { VapaeeScatter } from "./scatter.service";
+import { VapaeeScatter2 } from "./scatter2.service";
 
 // ------------------
 export interface TableParams {
@@ -19,24 +19,26 @@ export interface TableResult {
 
 export class SmartContract {
     contract: string;
-    scatter: VapaeeScatter;
+    scatter: VapaeeScatter2;
     
-    constructor(contract: string = "", scatter: VapaeeScatter = null) {
+    constructor(contract: string = "", scatter: VapaeeScatter2 = null) {
         this.contract = contract;
         this.scatter = scatter;
     }    
-    /*
+    //*
     // eosjs2
     excecute(action: string, params: any) {
         console.log("Utils.excecute()", action, [params]);
         return new Promise<any>((resolve, reject) => {
             try {
+                /*
                 this.scatter.executeTransaction(this.contract, action, params).then(result => {
                     resolve(result);
                 }).catch(err => {
                     console.error("ERROR: ", err);
                     reject(err);
                 });
+                */
             } catch (err) { console.error(err); reject(err); }
         }); // .catch(err => console.error(err) );
     }
