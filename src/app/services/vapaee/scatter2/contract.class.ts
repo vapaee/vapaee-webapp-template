@@ -1,64 +1,61 @@
+import { EOSNetworkConnexion } from './eos-connexion.class';
 import { VapaeeScatter2 } from "./scatter2.service";
+import { TableParams, TableResult, Action, Transaction } from './types-scatter2';
 
 // ------------------
-export interface TableParams {
-    contract?:string, 
-    scope?:string, 
-    table_key?:string, 
-    lower_bound?:string, 
-    upper_bound?:string, 
-    limit?:number, 
-    key_type?:string, 
-    index_position?:string
-}
 
-export interface TableResult {
-    more: boolean;
-    rows: any[];
-}
 
 export class SmartContract {
-    contract: string;
-    scatter: VapaeeScatter2;
+
     
-    constructor(contract: string = "", scatter: VapaeeScatter2 = null) {
-        this.contract = contract;
-        this.scatter = scatter;
+    constructor(
+        public contract: string = "",
+        public connexion: EOSNetworkConnexion = null
+    ) {
+
     }    
-    //*
-    // eosjs2
-    excecute(action: string, params: any) {
-        console.log("Utils.excecute()", action, [params]);
-        return new Promise<any>((resolve, reject) => {
-            try {
-                /*
-                this.scatter.executeTransaction(this.contract, action, params).then(result => {
-                    resolve(result);
-                }).catch(err => {
-                    console.error("ERROR: ", err);
-                    reject(err);
-                });
-                */
-            } catch (err) { console.error(err); reject(err); }
-        }); // .catch(err => console.error(err) );
+    
+    async excecute(action: string | Action | Transaction, payload: any = null) {
+        console.log("SmartContract.excecute()", [action, payload]);
+        if (
+            arguments.length == 2 &&
+            typeof action == "string"
+        ) {
+            // backward compatibility
+            return this.executeAction({action, payload, contract: this.contract, blockchain: this.connexion.slug});
+        }
+
+        if (
+            typeof (<Action>action).action == "string"
+        ) {
+            // backward compatibility
+            return this.executeAction(<Action>action);
+        }
+
+        if (
+            typeof (<Transaction>action).length == "number" &&
+            (<Transaction>action).length > 0
+        ) {
+            // backward compatibility
+            return this.executeTransaction(<Transaction>action);
+        }
+
+        throw "Contract.excecute() error: Unknown action type (" + typeof action + "): " + JSON.stringify(action);
     }
-    /*/
-    excecute(action: string, params: any) {
-        console.log("Utils.excecute()", action, [params]);
-        return new Promise<any>((resolve, reject) => {
-            try {
-                // this.scatter.getContractWrapper(this.contract).then(contract => {
-                //     try {
-                //         contract[action](params, this.scatter.authorization).then((response => {
-                //             console.log("Utils.excecute() ---> ", [response]);
-                //             resolve(response);
-                //         })).catch(err => { reject(err); });
-                //     } catch (err) { reject(err); }
-                // }).catch(err => { reject(err); });
-            } catch (err) { reject(err); }
-        }); // .catch(err => console.error(err) );
+
+    private async executeAction(action: Action) {
+        this.executeTransaction([action]);
     }
-    //*/
+
+    private async executeTransaction(trx: Transaction) {
+        for (let i=0; i<trx.length; i++) {
+            trx[i].contract = this.contract;
+        }
+        return this.connexion.sendTransaction(trx);
+    }
+
+
+    
 
     getTable(table:string, params:TableParams = {}): Promise<TableResult> {
 

@@ -1,42 +1,160 @@
 <div class="ion-padding container">
     <h1>Scatter Page</h1>
+
+    <mat-card class="ion-margin-top">
+        <mat-card-content>
+            <mat-list>
+
+                <mat-list-item>
+                    <button color="warn" (click)="debug()" mat-raised-button>
+                        Debug
+                    </button>         
+                </mat-list-item>
+        
+                <mat-divider></mat-divider>
+        
+                <mat-list-item>
+                    <button color="primary" *ngIf="!scatter.connexion.telos?.logged" (click)="tryToConnect('telos')" mat-raised-button>
+                        Connect to Telos
+                    </button>
+                    <div *ngIf="scatter.connexion.telos?.logged">
+                        <span (click)="disconnectFrom('telos')" mat-elevation-z2>
+                            Connected to Telos as {{scatter.connexion.telos.account.name}}
+                        </span>
+                        
+                        <button color="accent" (click)="scatter.connexion.telos.logout()" mat-raised-button>
+                            logout
+                        </button>
+                        
+                        <button color="warn" (click)="scatter.connexion.telos.print()" mat-raised-button>
+                            print
+                        </button>
+        
+                        <button color="primary" (click)="aux_transaction('telos')" mat-raised-button>
+                            transaction
+                        </button>
+                    </div>
+                    
+                </mat-list-item>
+        
+                <mat-divider></mat-divider>
+        
+                <mat-list-item>
+                    <button color="primary" *ngIf="!scatter.connexion.eos?.logged" (click)="tryToConnect('eos')" mat-raised-button>
+                        Connect to EOS
+                    </button>
+                    <div *ngIf="scatter.connexion.eos?.logged">
+                        <span (click)="disconnectFrom('eos')" mat-elevation-z2>
+                            Connected to EOS as {{scatter.connexion.eos.account.name}}
+                        </span>
+        
+                        <button color="accent" (click)="scatter.connexion.eos.logout()" mat-raised-button>
+                            logout
+                        </button>
+        
+                        <button color="warn" (click)="scatter.connexion.eos.print()" mat-raised-button>
+                            print
+                        </button>
+        
+                        <button color="primary" (click)="aux_transaction('eos')" mat-raised-button>
+                            transaction
+                        </button>
+        
+                    </div>
+                </mat-list-item>
+        
+            </mat-list>
+        </mat-card-content>
+
+    </mat-card>
+
+    <mat-card class="ion-margin-top">
+
+        <ion-grid class="d-inline-block">
+            <ion-row *ngIf="scatter.feed.loadings?.endpoints">
+                <ion-col class="text-nowrap">
+                    <span class="ion-margin-left">Scatter Endponits </span>
+                </ion-col>
+                <ion-col>
+                    <mat-spinner color="primary" diameter="20"></mat-spinner>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="scatter.feed.loadings?.connexion">
+                <ion-col class="text-nowrap">
+                    <span class="ion-margin-left">Scatter Connecting </span>
+                </ion-col>
+                <ion-col>
+                    <mat-spinner color="accent" diameter="20"></mat-spinner>
+                </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="scatter.connexion.telos?.feed.loadings?.transaction">
+                <ion-col class="text-nowrap">
+                    <span class="ion-margin-left">Telos Transaction </span>
+                </ion-col>
+                <ion-col>
+                    <mat-spinner color="primary" diameter="20"></mat-spinner>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="scatter.connexion.telos?.feed.loadings?.login">
+                <ion-col class="text-nowrap">
+                    <span class="ion-margin-left">Telos Login </span>
+                </ion-col>
+                <ion-col>
+                    <mat-spinner color="warn" diameter="20"></mat-spinner>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="scatter.connexion.telos?.feed.loadings?.connecting">
+                <ion-col class="text-nowrap">
+                    <span class="ion-margin-left">Telos Connecting </span>
+                </ion-col>
+                <ion-col>
+                    <mat-spinner color="accent" diameter="20"></mat-spinner>
+                </ion-col>
+            </ion-row>
+            
+            <ion-row *ngIf="scatter.connexion.eos?.feed.loadings?.transaction">
+                <ion-col class="text-nowrap">
+                    <span class="ion-margin-left">EOS Transaction </span>
+                </ion-col>
+                <ion-col>
+                    <mat-spinner color="primary" diameter="20"></mat-spinner>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="scatter.connexion.eos?.feed.loadings?.login">
+                <ion-col class="text-nowrap">
+                    <span class="ion-margin-left">EOS Login </span>
+                </ion-col>
+                <ion-col>
+                    <mat-spinner color="warn" diameter="20"></mat-spinner>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="scatter.connexion.eos?.feed.loadings?.connecting">
+                <ion-col class="text-nowrap">
+                    <span class="ion-margin-left">EOS Connecting </span>
+                </ion-col>
+                <ion-col>
+                    <mat-spinner color="accent" diameter="20"></mat-spinner>
+                </ion-col>
+            </ion-row>            
+        </ion-grid>
+
+    </mat-card>
+    <mat-card class="ion-margin-top">
+        <mat-card-title>Loading flags</mat-card-title>
+        <mat-card-subtitle >Scatter feed</mat-card-subtitle>
+        <mat-card-content>
+            <pre>{{scatter.feed|json}}</pre>
+        </mat-card-content>
+        <mat-card-subtitle *ngIf="scatter.connexion.telos">Telos feed</mat-card-subtitle>
+        <mat-card-content *ngIf="scatter.connexion.telos">
+            <pre>{{scatter.connexion.telos.feed|json}}</pre>
+        </mat-card-content>
+        <mat-card-subtitle *ngIf="scatter.connexion.eos">EOS feed</mat-card-subtitle>
+        <mat-card-content *ngIf="scatter.connexion.eos">
+            <pre>{{scatter.connexion.eos.feed|json}}</pre>
+        </mat-card-content>
+    </mat-card>
     
-    <mat-list>
-
-        <mat-list-item>
-            <button color="warn" (click)="debug()" mat-raised-button>
-                Debug
-            </button>
-        </mat-list-item>
-
-        <mat-divider></mat-divider>
-
-        <mat-list-item>
-            <button color="primary" *ngIf="!scatter.net.telos?.logged" (click)="tryToConnect('telos')" mat-raised-button>
-                Connect to Telos
-            </button>
-            <span *ngIf="scatter.net.telos?.logged" (click)="disconnectFrom('telos')" mat-elevation-z2>
-                Connected to Telos as {{scatter.net.telos.account.name}}
-                <button color="accent" (click)="scatter.net.telos.logout()" mat-raised-button>
-                    logout
-                </button>
-            </span>
-        </mat-list-item>
-
-        <mat-divider></mat-divider>
-
-        <mat-list-item>
-            <button color="primary" *ngIf="!scatter.net.eos?.logged" (click)="tryToConnect('eos')" mat-raised-button>
-                Connect to EOS
-            </button>
-            <span *ngIf="scatter.net.eos?.logged" (click)="disconnectFrom('eos')" mat-elevation-z2>
-                Connected to EOS {{scatter.net.eos.account.name}}
-                <button color="accent" (click)="scatter.net.eos.logout()" mat-raised-button>
-                    logout
-                </button>
-            </span>
-        </mat-list-item>
-
-    </mat-list>
     
 </div>

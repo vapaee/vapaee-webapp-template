@@ -374,6 +374,15 @@ export class AppService {
         this.unsubscribeOnResize(page);
     }
 
+
+    // wait milisec
+    async sleep(milisec: number): Promise<void> {
+        console.log("sleep " + milisec + "...");
+        return new Promise(r => {
+            setTimeout(_ => r(), milisec);
+        });
+    }
+
 }
 
 export interface OnEnterPageHandler {

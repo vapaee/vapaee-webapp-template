@@ -5,7 +5,7 @@ import { LocalStringsService } from 'src/app/services/common/common.services';
 import { VapaeeScatter2 } from 'src/app/services/vapaee/scatter2/scatter2.service';
 
 
-
+import ScatterJS from '@scatterjs/core';
 
 @Component({
     selector: 'scatter-page',
@@ -17,20 +17,41 @@ export class ScatterPage implements OnInit, OnDestroy, VpeAppPage {
     @HostBinding('class') class = 'app-page scatter';
     timer: number;
     showFiller;
+    appname:string = "@vapaee/scatter";
     constructor(
         public app: AppService,
         public local: LocalStringsService,
         public scatter: VapaeeScatter2,
         public elementRef: ElementRef
     ) {
-        this.scatter.init("assets/endpoints.json");
+        
+    }
+
+    async ngOnInit() {
+        console.debug("ScatterPage.ngOnInit()");
+        this.app.subscribePage(this);
+        let slug = "telos";
+
+        await this.scatter.init("assets/endpoints.json");
+        // await this.scatter.setNetwork(slug)
+        // await this.scatter.connectApp(this.appname);
+    }
+    
+    ngOnDestroy() {
+        console.debug("ScatterPage.ngOnDestroy()");
+        this.app.unsubscribePage(this);
+    }
+
+    async connectApp() {
+        console.log("ScatterPage.connectApp()");
+        await this.scatter.connectApp(this.appname);
     }
 
     async tryToConnect(network_slug:string) {
-        console.log("ScatterPage.tryToConnect("+network_slug+") ---> createConnextion()");
-        await this.scatter.createConnextion("@vapaee/scatter", network_slug);
+        console.log("ScatterPage.tryToConnect("+network_slug+") ---> createConnexion()");
+        await this.scatter.createConnexion(this.appname, network_slug);
         console.log("ScatterPage.tryToConnect("+network_slug+") ---> login()");
-        await this.scatter.net[network_slug].login();
+        await this.scatter.connexion[network_slug].login();
     }
 
     disconnectFrom(network_slug:string) {
@@ -48,17 +69,51 @@ export class ScatterPage implements OnInit, OnDestroy, VpeAppPage {
         console.debug("ScatterPage.onResize()");
     }
 
-    ngOnInit() {
-        console.debug("ScatterPage.ngOnInit()");
-        this.app.subscribePage(this);
-    }
-    
-    ngOnDestroy() {
-        console.debug("ScatterPage.ngOnDestroy()");
-        this.app.unsubscribePage(this);
+    aux_transaction(slug:string) {
+        console.log("aux_transaction("+slug+")");
+        console.assert(typeof this.scatter.connexion[slug] != "undefined", "ERROR: connexion "+slug+" not found");
+
+        let contract = this.scatter.connexion[slug].getContract("eosio.token");
+        contract.excecute([
+            {
+                action: "transfer",
+                payload: {
+                    from: this.scatter.connexion[slug].account.name,
+                    to: 'gqydoobuhege',
+                    quantity: '0.0001 ' + this.scatter.connexion[slug].symbol,
+                    memo: "testing",
+                },
+            },
+            {
+                action: "transfer",
+                payload: {
+                    from: this.scatter.connexion[slug].account.name,
+                    to: 'gqydoobuhege',
+                    quantity: '0.0002 ' + this.scatter.connexion[slug].symbol,
+                    memo: "testing",
+                },
+            }
+        ]);
     }
 
     debug() {
+        console.log("--- Scatter Page ---");
         console.log(this);
+
+        console.log("--- ScatterJS ---");
+        console.log("ScatterJS.scatter.identity: ", ScatterJS.scatter.identity);
+        console.log("ScatterJS.scatter.network: ", ScatterJS.scatter.network);
+        console.log("ScatterJS.scatter: ", ScatterJS.scatter);
+
+        if (this.scatter.connexion["telos"]) {
+            console.log("--- Telos Connexion ---");
+            this.scatter.connexion["telos"].print();
+        }
+
+        if (this.scatter.connexion["eos"]) {
+            console.log("--- EOS Connexion ---");
+            this.scatter.connexion["eos"].print();
+        }
+
     }
 }
