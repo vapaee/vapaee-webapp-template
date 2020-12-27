@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy, HostBinding, ElementRef } from '@angular/
 import { Subscriber } from 'rxjs';
 import { AppService, OnEnterPageHandler, VpeAppPage } from 'src/app/services/common/app.service';
 import { LocalStringsService } from 'src/app/services/common/common.services';
-import { VapaeeScatter2 } from 'src/app/services/vapaee/scatter2/scatter2.service';
 
 import { IonicModule } from '@ionic/angular';
+import { VapaeeScatter } from '@vapaee/scatter';
 
 import ScatterJS from '@scatterjs/core';
 
@@ -22,7 +22,7 @@ export class ScatterPage implements OnInit, OnDestroy, VpeAppPage {
     constructor(
         public app: AppService,
         public local: LocalStringsService,
-        public scatter: VapaeeScatter2,
+        public scatter: VapaeeScatter,
         public elementRef: ElementRef
     ) {
         
@@ -50,9 +50,11 @@ export class ScatterPage implements OnInit, OnDestroy, VpeAppPage {
 
     async tryToConnect(network_slug:string) {
         console.log("ScatterPage.tryToConnect("+network_slug+") ---> createConnexion()");
-        await this.scatter.createConnexion(this.appname, network_slug);
+        let conn = await this.scatter.createConnexion(network_slug);
+        console.log("ScatterPage.tryToConnect("+network_slug+") ---> connect()");
+        await conn.connect(this.appname);
         console.log("ScatterPage.tryToConnect("+network_slug+") ---> login()");
-        await this.scatter.connexion[network_slug].login();
+        await conn.login();
     }
 
     disconnectFrom(network_slug:string) {

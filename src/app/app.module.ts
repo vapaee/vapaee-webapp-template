@@ -13,11 +13,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { PagesModule } from './pages/pages.module';
 import { DirectivesModule } from './directives/directives.module';
 
-import { VapaeeLibsModule } from './services/vapaee/vapaee.module';
 import { CommonServicesModule } from './services/common/common.module';
 import { VapaeeComponentsModule } from './components/vapaee/vapaee-components.module';
 import { AngularMaterialModule } from './components/vapaee/angular.material.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { VapaeeStyle } from '@vapaee/style';
+import { VapaeeScatter } from '@vapaee/scatter';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
     declarations: [AppComponent],
@@ -29,7 +32,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         PagesModule,
         DirectivesModule,
         CommonServicesModule,
-        VapaeeLibsModule,
         VapaeeComponentsModule,
         AngularMaterialModule,
         NgbModule
@@ -37,6 +39,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     providers: [
       StatusBar,
       SplashScreen,
+      VapaeeStyle,
+      VapaeeScatter,
+      CookieService,
       { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     ],
     bootstrap: [AppComponent],

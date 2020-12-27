@@ -16,9 +16,9 @@
       "dom"
     ],
     "paths": {
-      "@vapaee/scatter2": [
-        "dist/vapaee/scatter2/vapaee-scatter2",
-        "dist/vapaee/scatter2"
+      "@vapaee/scatter": [
+        "dist/vapaee/scatter/vapaee-scatter",
+        "dist/vapaee/scatter"
       ]
     }
   },

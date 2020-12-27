@@ -5,8 +5,10 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppService } from './services/common/app.service';
 import { DropdownService, LocalStringsService } from './services/common/common.services';
-import { VapaeeStyle } from './services/vapaee/style/style.service';
+
 import { VpeMainTopSideMenuService } from './components/vapaee/vpe-main-top-side-menu/vpe-main-top-side-menu.service';
+
+import { VapaeeStyle } from '@vapaee/style';
 
 @Component({
     selector: 'app-root',
@@ -32,6 +34,7 @@ export class AppComponent {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
+            console.log("this.style.skins: ", this.style.skins);
         });
 
         this.mainmenu.setMenu([

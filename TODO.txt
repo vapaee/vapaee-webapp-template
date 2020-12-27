@@ -1,5 +1,5 @@
 -- TODO --
-- sacar el project vapaee/scatter2
+- sacar el project vapaee/scatter
 - importar los @vapaee libs 
 - 
 
