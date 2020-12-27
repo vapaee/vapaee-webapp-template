@@ -6,7 +6,7 @@ declare var fb_id: string;
 @Injectable()
 export class FacebookService {
     pageviewTimer: number;
-    waitReady: Promise<any>;
+    waitReady: Promise<void>;
     active:boolean;
     constructor() {
         this.init();
@@ -41,7 +41,7 @@ export class FacebookService {
     
         } else {
             console.debug("Facebook() off - fb_id not found");
-            this.waitReady = new Promise(_ => {});
+            this.waitReady = new Promise(() => {});
         }
     }    
     

@@ -1,4 +1,7 @@
 -- TODO --
+- sacar el project vapaee/scatter2
+- importar los @vapaee libs 
+- 
 
 - Iconos: meter un par de bibliotecas de íconos (la de ionic y la de Angular)
 - vpe-main-top-side-menu: 

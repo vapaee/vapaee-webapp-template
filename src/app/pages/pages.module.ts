@@ -12,7 +12,7 @@ import { AngularMaterialPage } from './angular-material/angular-material.page';
 import { ScatterPage } from './scatter/scatter.page';
 
 
-
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
     declarations: [
@@ -27,7 +27,8 @@ import { ScatterPage } from './scatter/scatter.page';
         BrowserModule,
         FormsModule,
         AngularMaterialModule,
-        VapaeeComponentsModule    
+        VapaeeComponentsModule,
+        IonicModule
     ],
     providers: [
         

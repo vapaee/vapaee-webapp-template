@@ -78,6 +78,10 @@ export class AppService {
         return environment.version;
     }
 
+    get name() {
+        return environment.name;
+    }
+
     isOpera:boolean;
     isFirefox:boolean;
     isSafari:boolean;

@@ -4,12 +4,15 @@ import { CommonModule } from '@angular/common';
 import { AnalyticsService } from './analytics.service';
 import { LocalStringsService } from './local-strings.service';
 import { DomService } from './dom.service';
-import { BroadcastService } from './broadcast.service';
 import { FacebookService } from './facebook.service';
-import { AppService } from './app.service';
+import { AppService, LoadingOverall } from './app.service';
 import { DropdownService } from './dropdown.service';
 
 @NgModule({
+    declarations: [LoadingOverall],
+    entryComponents: [
+        LoadingOverall
+    ],
     imports: [
         CommonModule,
         HttpClientModule
@@ -18,11 +21,11 @@ import { DropdownService } from './dropdown.service';
         AnalyticsService,
         LocalStringsService,
         DomService,
-        BroadcastService,
         FacebookService,
         AppService,
         DropdownService
-    ]
+    ],
+    exports: [LoadingOverall],
 })
 
 export class CommonServicesModule {}

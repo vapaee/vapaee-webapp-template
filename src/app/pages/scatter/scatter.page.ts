@@ -4,6 +4,7 @@ import { AppService, OnEnterPageHandler, VpeAppPage } from 'src/app/services/com
 import { LocalStringsService } from 'src/app/services/common/common.services';
 import { VapaeeScatter2 } from 'src/app/services/vapaee/scatter2/scatter2.service';
 
+import { IonicModule } from '@ionic/angular';
 
 import ScatterJS from '@scatterjs/core';
 
